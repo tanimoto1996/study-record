@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', "新規登録")
+@section('title', "ログイン")
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets/css/auth/login.css') }}">
@@ -15,23 +15,23 @@
   <div class="login-container">
     <div id="output"></div>
     <div class="register-title">
-      ユーザー登録
+      ログイン
       <div class="login-logo">
         <img src="{{ asset('assets/image/login-logo.png') }}" alt="">
       </div>
     </div>
 
     <div class="form-box">
-      <form method="POST" action="{{ route('register') }}">
+      <form method="POST" action="{{ route('login') }}">
         @csrf
-        <input name="name" type="text" placeholder="名前" value="{{ old('name') }}">
         <input name="email" type="email" placeholder="メールアドレス" value="{{ old('email') }}">
         <input name="password" type="password" placeholder="パスワード" required>
-        <button class="btn btn-info btn-block login" type="submit">ユーザー登録</button>
+        <input type="hidden" type="remember" id="remember" value="on">
+        <button class="btn btn-info btn-block login" type="submit">ログイン</button>
       </form>
     </div>
     <div class="login-here">
-      <a href="{{ route('login') }}">ログインはこちら</a>
+      <a href="{{ route('register') }}">アカウント作成</a>
     </div>
   </div>
 </div>
