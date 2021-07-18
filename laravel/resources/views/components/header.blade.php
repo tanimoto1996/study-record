@@ -17,13 +17,24 @@
         {{-- ログイン済み --}}
         <li class="nav-item dropdown ml-2">
           {{-- ログイン情報 --}}
-          <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-
-            <form id="logout-button" method="POST" action="{{ route('logout') }}">
-              @csrf
-              <button form="logout-button" type="submit">ログアウト</button>
-            </form>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ Auth::user()->name }}様
           </a>
+          <div class="dropdown-menu dropdown-menu-right dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+            <!-- <button class="dropdown-item" type="button">
+              ・・・
+            </button> -->
+            <div class="dropdown-divider"></div>
+            <button form="logout-button" class="dropdown-item" type="submit">
+              ログアウト
+            </button>
+          </div>
+        </li>
+        <form id="logout-button" method="POST" action="{{ route('logout') }}">
+          @csrf
+        </form>
+        </a>
         </li>
         @endguest
       </ul>
