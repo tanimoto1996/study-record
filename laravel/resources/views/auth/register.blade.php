@@ -10,6 +10,10 @@
 
 <!-- ここから作成 note参考に画面の作成をしていく -->
 <div class="container">
+
+  <!-- エラー表示 -->
+  @include('components.error_list')
+
   <div class="login-container">
     <div id="output"></div>
     <div class="register-title">
@@ -18,6 +22,7 @@
         <img src="{{ asset('assets/image/login-logo.png') }}" alt="">
       </div>
     </div>
+
     <div class="form-box">
       <form method="POST" action="{{ route('register') }}">
         @csrf
