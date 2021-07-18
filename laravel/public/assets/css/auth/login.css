@@ -162,3 +162,9 @@ body {
   -webkit-animation-name: fadeInUp;
   animation-name: fadeInUp;
 }
+
+/* passwordReset */
+.password-rest-link {
+  color: #0000008c;
+  font-size: 12px;
+}
