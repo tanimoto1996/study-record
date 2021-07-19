@@ -11,10 +11,10 @@
 <div class="main-wrapper">
   <div class="side-bar">
     <ul>
-      <li>TOP</li>
-      <li>TODO</li>
-      <li>MEMO</li>
-      <li>CLENDAR</li>
+      <li><a href="#">TOP</a></li>
+      <li><a href="#">TODO<a></li>
+      <li><a href="#">MEMO<a></li>
+      <li><a href="#">CLENDAR<a></li>
     </ul>
   </div>
   <div class="main-container">

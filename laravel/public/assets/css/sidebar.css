@@ -15,7 +15,6 @@
 }
 
 ul {
-  color: #8395a9;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -28,10 +27,15 @@ ul li {
   margin-top: 20px;
 }
 
+ul li a {
+  color: #8395a9;
+}
+
 .card-content {
   display: flex;
   justify-content: space-evenly;
   margin-top: 30px;
+  margin-right: 50px;
 }
 
 .card-memo {
