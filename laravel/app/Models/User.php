@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Mail\BareMail;
 use App\Notifications\PasswordResetNotification;
