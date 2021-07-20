@@ -18,7 +18,7 @@
         Todo List
       </div>
       <div class="card-body">
-        <!-- タスク検索フォーム -->
+        <!-- タスク検索 フォーム -->
         <form class="form-inline" action="{{ route('todo.create') }}" method="post">
           @csrf
           <input type="text" class="form-control" name="todo_body" placeholder="新しいタスクを追加する" value="{{ old('todoBody') }}">
@@ -34,14 +34,14 @@
           <input type="checkbox" class="taskStatus" name="todo_status" data-id="{{ $task->id }}" checked>
           @endempty
 
-          <!-- タスク編集フォーム -->
+          <!-- タスク編集 フォーム -->
           <form class="d-inline task-update" action="{{ route('todo.update', ['task_id' => $task->id]) }}" method="post">
             @method('patch')
             @csrf
             <input type="text" class="body" name="todo_body" class="d-inline" value="{{ $task->todo_body }}">
           </form>
 
-          <!-- タスク削除フォーム -->
+          <!-- タスク削除 フォーム -->
           <form class="d-inline" action="{{ route('todo.delete', ['task_id' => $task->id]) }}" method="post">
             @method('delete')
             @csrf
