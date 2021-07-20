@@ -3,11 +3,6 @@
   height: 100vh;
 }
 
-.main-container {
-  background: #f2f4f8;
-  width: 85%;
-}
-
 .side-bar {
   background: #272c44;
   flex: 1;
@@ -31,17 +26,8 @@ ul li a {
   color: #8395a9;
 }
 
-.card-content {
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 30px;
-  margin-right: 50px;
-}
-
-.card-memo {
-  margin: 0 10px;
-}
-
-.study-total-time {
-  margin: 100px auto;
+/* メインの横幅 */
+.main-container {
+  background: #f2f4f8;
+  width: 85%;
 }

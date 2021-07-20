@@ -4,19 +4,16 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets/css/sidebar.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/top.css') }}">
 @endsection
 
 @section('content')
 
 <div class="main-wrapper">
-  <div class="side-bar">
-    <ul>
-      <li><a href="#">TOP</a></li>
-      <li><a href="#">TODO<a></li>
-      <li><a href="#">MEMO<a></li>
-      <li><a href="#">CLENDAR<a></li>
-    </ul>
-  </div>
+
+  <!-- サイドバー -->
+  @include('components.sidebar')
+
   <div class="main-container">
     <div class="card-content">
       <div class="card" style="width: 18rem;">

@@ -1,0 +1,15 @@
+.todo-list-container .item-row.active {
+  opacity: 0.3;
+}
+
+.todo-list-container {
+  margin: 0 auto;
+}
+.todo-list-container input[type="text"][name="todo_body"] {
+  flex: 1;
+}
+
+.todo-list-container .task-update input.body {
+  width: 70%;
+  margin-top: 40px;
+}
