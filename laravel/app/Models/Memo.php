@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Todo extends Model
+class Memo extends Model
 {
     /**
      * 複数代入する属性
@@ -13,7 +13,7 @@ class Todo extends Model
      * @var array
      */
     protected $fillable = [
-        'todo_body', 'todo_status', 'user_id',
+        'memo_title', 'memo_body', 'user_id',
     ];
 
     // usersテーブルと紐付ける
