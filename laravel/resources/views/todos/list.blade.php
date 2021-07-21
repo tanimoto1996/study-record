@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', "トップ")
+@section('title', "TODO")
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets/css/sidebar.css') }}">

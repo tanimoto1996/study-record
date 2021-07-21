@@ -21,5 +21,12 @@ Route::prefix('todo')->name('todo.')->group(function () {
     });
 });
 
+// MEMO
+Route::prefix('memo')->name('memo.')->group(function () {
+    Route::group(['middleware' => 'auth'], function () {
+        Route::get('/', 'MemoController@showMemoList')->name('list');
+    });
+});
+
 // 認証
 Auth::routes();

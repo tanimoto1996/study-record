@@ -1,0 +1,20 @@
+.input-area {
+  flex-flow: column;
+}
+
+.input-area textarea#memo-body {
+  padding-bottom: 400px;
+}
+
+.input-area input#memo-title,
+.input-area textarea#memo-body {
+  outline: none;
+}
+
+.left-contents .left-add-icon {
+  color: #42a5f5;
+  cursor: pointer;
+  font-size: 25px;
+  margin-right: 20px;
+  margin-top: 6px;
+}
