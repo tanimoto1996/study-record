@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 
-// TOPページ
+// トップページ
 Route::get('/', function () {
     return view('top');
 });
@@ -21,10 +21,14 @@ Route::prefix('todo')->name('todo.')->group(function () {
     });
 });
 
-// MEMO
+// メモ
 Route::prefix('memo')->name('memo.')->group(function () {
     Route::group(['middleware' => 'auth'], function () {
         Route::get('/', 'MemoController@showMemoList')->name('list');
+        Route::get('/create', 'MemoController@memoCreate')->name('create');
+        Route::get('/select', 'MemoController@memoSelect')->name('select');
+        Route::post('/update', 'MemoController@memoUpdate')->name('update');
+        Route::post('/delete', 'MemoController@memoDelete')->name('delete');
     });
 });
 
