@@ -44,7 +44,7 @@ $(function () {
       })
       //通信が失敗したとき
       .fail((error) => {
-        console.log('通信成功');
+        console.log('通信失敗');
       });
   });
 });

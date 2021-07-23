@@ -32,5 +32,13 @@ Route::prefix('memo')->name('memo.')->group(function () {
     });
 });
 
+// カレンダー
+Route::prefix('calendar')->name('calendar.')->group(function () {
+    Route::group(['middleware' => 'auth'], function () {
+        Route::get('/', 'CalendarController@showCalendar')->name('index');
+        Route::get('/edit', 'CalendarController@calendarEdit')->name('edit');
+    });
+});
+
 // 認証
 Auth::routes();
