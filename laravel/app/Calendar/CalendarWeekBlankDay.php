@@ -13,7 +13,7 @@ class CalendarWeekBlankDay extends CalendarWeekDay
 
   function getClassName()
   {
-    return "day-blank";
+    return "day-field day-blank";
   }
 
   function render()

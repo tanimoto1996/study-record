@@ -5,7 +5,7 @@
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets/css/sidebar.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/calendar/index.css') }}">
-<link href="https://cdn.jsdelivr.net/gh/StephanWagner/jBox@v1.3.3/dist/jBox.all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.31/example1/colorbox.min.css" integrity="sha512-qDmL8zJf49wqgbTQEr0nsThYpyQkjc+ulm2zAjRXd/MCoUBuvd19fP2ugx7dnxtvMOzSJ1weNdSE+jbSnA4eWw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection
 
 @section('content')
@@ -19,33 +19,25 @@
     <div class="row justify-content-center">
       <div class="col-md-8 mt-3">
         <div class="card">
-          <div class="card-header">{{ $calendar->getTitle() }}</div>
+          <div class="card-header text-center">
+            <a class="btn btn-outline-secondary float-left" href="{{ url('calendar/?date=' . $calendar->getPreviousMonth()) }}">前の月</a>
+            <span>{{ $calendar->getTitle() }}</span>
+            <a class="btn btn-outline-secondary float-right" href="{{ url('calendar/?date=' . $calendar->getNextMonth()) }}">次の月</a>
+          </div>
           <div class="card-body">
             {!! $calendar->render() !!}
-            <!-- モーダル -->
-            <div id="modal-1" aria-hidden="true">
-              <!-- この div がオーバーレイになるとする -->
-              <div tabindex="-1" data-micromodal-close>
-                <div role="dialog" aria-modal="true" aria-labelledby="..." aria-describedby="...">
-                  <!-- 略 -->
-                </div>
-              </div>
-            </div>
-
-            <!-- 開くボタン -->
-            <button data-micromodal-trigger="modal-1">open</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div id="modalBox"></div>
+
 </div>
-
-
-
 @endsection
 
 @section('js')
-<script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.6.4/jquery.colorbox-min.js" integrity="sha512-DAVSi/Ovew9ZRpBgHs6hJ+EMdj1fVKE+csL7mdf9v7tMbzM1i4c/jAvHE8AhcKYazlFl7M8guWuO3lDNzIA48A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{ asset('assets/js/calendars/index.js') }}"></script>
 @endsection
