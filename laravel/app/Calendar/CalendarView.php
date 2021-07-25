@@ -30,7 +30,6 @@ class CalendarView
   {
     return $this->carbon->copy()->addMonthsNoOverflow()->format('Y-m');
   }
-
   /**
    * 前の月
    */
@@ -45,12 +44,22 @@ class CalendarView
   {
 
     $calendar = Calendar::where('user_id', Auth::id())->get();
-    // カレンダーの情報を連想配列で格納(field => body)
+
+    // カレンダーの情報（filed + body）を連想配列で格納
     $calendar_date = [];
     foreach ($calendar as $date) {
-      $calendar_date[$date->calendar_field] = $date->calendar_body;
+      $text = $date->calendar_body;
+      $limit = 15;
+
+      if (mb_strlen($text) > $limit) {
+        // 文字の末尾に「・・・」をつける
+        $text = mb_substr($text, 0, $limit) . "･･･";
+      }
+
+      $calendar_date[$date->calendar_field] = $text;
     }
 
+    // フィールドカラムを配列に格納
     $calendar_field_array = array_column($calendar->toArray(), 'calendar_field');
 
     $html = [];

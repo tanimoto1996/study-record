@@ -3,7 +3,7 @@ $(function () {
   // 日付をクリックした時
   $('.day-field').on('click', function () {
     // 年月日を取得（フィールドが一意にするため）
-    const date = $(this).find('input').val()
+    const date = $(this).find('input').val();
 
     //PC
     var cbW = '520px';
@@ -59,26 +59,18 @@ $(function () {
         }).done(function (data) {
           //通信が成功したとき
           $('#modalBox').html(data);
-        })
+
+        }).fail((error) => {
           //通信が失敗したとき
-          .fail((error) => {
-            console.log('通信失敗');
-          });
+          console.log('通信失敗');
 
+        });
       },
-
       onClosed: function () {
-
         $('body').css('position', '').css('left', 'auto').css('right', 'auto').css('top', 'auto');
-
         $(window).scrollTop($('#colorbox').data('ycoord'));
-
         $('#modalBox').html('');
-
       },
-
     });
-
   });
-
 });
