@@ -12,17 +12,20 @@ class CalendarController extends Controller
     // カレンダートップ画面表示
     public function showCalendar(Request $request)
     {
+        //クエリーのdateを受け取る
+        $date = $request->input("date");
 
-        if (isset($request)) {
-            $date = $request->date;
-            $Month = substr($date, 6);
-            $year = mb_substr($date, 0, 4);
-            $timestamp = mktime(0, 0, 0, (int)$Month, 1, (int)$year);
+        //dateがYYYY-MMの形式かどうか判定する
+        if ($date && preg_match("/^[0-9]{4}-[0-9]{2}$/", $date)) {
+            $date = strtotime($date . "-02");
         } else {
-            $timestamp = time();
+            $date = null;
         }
 
-        $calendar = new CalendarView($timestamp);
+        //取得出来ない時は現在(=今月)を指定する
+        if (!$date) $date = time();
+
+        $calendar = new CalendarView($date);
 
         return view('calendars.index', [
             'calendar' => $calendar,
@@ -38,7 +41,8 @@ class CalendarController extends Controller
         // クリックし日付の内容を返す
         return view('calendars.edit', [
             'calendar' => $calendar,
-            'id' => $request->calendar_id
+            'id' => $request->calendar_id,
+            'title' => $request->title,
         ]);
     }
 
