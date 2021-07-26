@@ -3,6 +3,19 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.3-node-browsers
+      - image: circleci/postgres:11.6-alpine
+        environment:
+          POSTGRES_DB: study
+          POSTGRES_USER: tanimoto
+          POSTGRES_PASSWORD: kakaka
+    environment:
+      APP_ENV: testing
+      DB_CONNECTION: pgsql
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_DATABASE: study
+      DB_USERNAME: tanimoto
+      DB_PASSWORD: kakaka
     working_directory: ~/laravel
     steps:
       - checkout
@@ -14,6 +27,13 @@ jobs:
           key: composer-v1-{{ checksum "./laravel/composer.lock" }}
           paths:
             - ./laravel/vendor
+      - run:
+          name: get ready for postgres
+          command: |
+            sudo apt-get update
+            sudo apt-get install libpq-dev
+            sudo docker-php-ext-install pdo_pgsql
+            dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
           name: php test
           command: ./laravel/vendor/bin/phpunit --configuration=./laravel/phpunit.xml
