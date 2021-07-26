@@ -5,8 +5,9 @@ jobs:
       - image: circleci/php:7.3-node-browsers
     steps:
       - checkout
+      - run:
+          working_directory: laravel
       - run: sudo composer self-update --1
       - run:
           name: php test
-          working_directory: laravel
           command: vendor/bin/phpunit
