@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="height: 70px;">
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="height: 80px;">
   <div class="container" style="max-width: 100%;">
-    <a class="navbar-brand" href="{{ url('/') }}">
+    <a class="navbar-brand" href="{{ route('top') }}">
       <img src="{{ asset('assets/image/header-logo.png') }}" style="width: 160px;">
     </a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">

@@ -4,10 +4,10 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 
-
 // トップページ
-Route::get('/', function () {
-    return view('top');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('top', 'TopController@showTop')->name('top');
+    Route::post('top/time', 'TopController@studyTimeCreate')->name('top.time');
 });
 
 // TODO
