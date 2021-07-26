@@ -10,5 +10,6 @@ jobs:
       - run: npm ci
       - run: npm run dev
       - run:
-        name: php test
-        command: vendor/bin/phpunit
+          name: php test
+          working_directory: laravel
+          command: vendor/bin/phpunit
