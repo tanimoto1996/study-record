@@ -66,7 +66,7 @@ class CalendarController extends Controller
         $calendar->user_id = Auth::id();
         $calendar->save();
 
-        // カレンダー、一覧に戻る.
+        // カレンダー、一覧に戻る
         return redirect()->route('calendar.index');
     }
 }

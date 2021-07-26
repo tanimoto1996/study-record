@@ -3,11 +3,11 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.3-node-browsers
+    working_directory: ~/laravel
     steps:
       - checkout
-      - run:
-          working_directory: laravel
       - run: sudo composer self-update --1
+      - run: composer install -n --prefer-dist --working-dir=./laravel
       - run:
           name: php test
-          command: vendor/bin/phpunit
+          command: ./laravel/vendor/bin/phpunit --configuration=./laravel/phpunit.xml
