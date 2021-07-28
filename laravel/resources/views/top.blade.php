@@ -34,7 +34,7 @@
       </div>
       <div class="card" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">本日の予定</h5>
+          <h5 class="card-title">本日の予定を確認する</h5>
           <p class="card-text">{{ $calendar->calendar_body ?? '' }}</p>
         </div>
       </div>
