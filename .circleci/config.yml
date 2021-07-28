@@ -37,3 +37,29 @@ jobs:
       - run:
           name: php test
           command: ./laravel/vendor/bin/phpunit --configuration=./laravel/phpunit.xml
+  deploy:
+    docker:
+      - image: circleci/php:7.3-node-browsers
+    steps:
+      - add_ssh_keys
+      - run:
+          name: deploy
+          command: |
+            ssh -o StrictHostKeyChecking=no -t webapp@${HOST_NAME} "cd study-record && \
+              git pull origin main && \
+              composer install -n --no-dev --prefer-dist --working-dir=./laravel && \
+              php artinsa migrate --force ./laravel/artisan && \
+              php artisan config:cache ./laravel/artisan"
+
+workflows:
+  version: 2
+  build_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - main
