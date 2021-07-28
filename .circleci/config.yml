@@ -48,8 +48,8 @@ jobs:
             ssh -o StrictHostKeyChecking=no -t webapp@${HOST_NAME} "cd study-record && \
               git pull origin main && \
               composer install -n --no-dev --prefer-dist --working-dir=./laravel && \
-              php artinsa migrate --force ./laravel/artisan && \
-              php artisan config:cache ./laravel/artisan"
+              php ./laravel/artisan migrate --force && \
+              php ./laravel/artisan config:cache"
 
 workflows:
   version: 2
