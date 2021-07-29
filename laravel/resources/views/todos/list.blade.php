@@ -27,27 +27,22 @@
 
         @foreach ($tasks as $task)
         <div {!! ($task->todo_status ? 'class="item-row active"' : '') !!}>
-
           @empty( $task->todo_status )
           <input type="checkbox" class="taskStatus" name="todo_status" data-id="{{ $task->id }}">
           @else
           <input type="checkbox" class="taskStatus" name="todo_status" data-id="{{ $task->id }}" checked>
           @endempty
 
-          <!-- タスク編集 フォーム -->
-          <form class="d-inline task-update" action="{{ route('todo.update', ['task_id' => $task->id]) }}" method="post">
+          <form class="d-inline task-update" method="post">
+            @csrf
+            <!-- タスク編集 フォーム -->
             @method('patch')
-            @csrf
-            <input type="text" class="body" name="todo_body" class="d-inline" value="{{ $task->todo_body }}">
-          </form>
+            <input type="text" class="body" formaction="{{ route('todo.update', ['task_id' => $task->id]) }}" name="todo_body" class="d-inline" value="{{ $task->todo_body }}">
 
-          <!-- タスク削除 フォーム -->
-          <form class="d-inline" action="{{ route('todo.delete', ['task_id' => $task->id]) }}" method="post">
+            <!-- タスク削除 フォーム -->
             @method('delete')
-            @csrf
-            <input type="submit" class="d-inline" value="削除">
+            <input type="submit" class="d-inline" formaction="{{ route('todo.delete', ['task_id' => $task->id]) }}" value="削除">
           </form>
-
         </div>
         @endforeach
       </div>
