@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-
 // トップページ
 Route::group(['middleware' => 'auth'], function () {
     Route::get('top', 'TopController@showTop')->name('top');

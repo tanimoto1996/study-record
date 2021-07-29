@@ -9,8 +9,6 @@ use App\Models\Todo;
 use App\Models\Calendar;
 use App\Models\StudyTime;
 
-
-
 class TopController extends Controller
 {
     public function showTop()
