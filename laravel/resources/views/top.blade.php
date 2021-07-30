@@ -17,25 +17,29 @@
   <div class="main-container">
     <div class="card-content">
       <div class="card" style="width: 18rem;">
-        <div class="card-body">
+        <div class="card-body bg-info text-white">
           <h5 class="card-title">TODO</h5>
+          <?php $count = 1; ?>
           @foreach ($tasks as $task)
-          <p class="card-text">{{ $task->todo_body ?? '' }}</p>
+          <p class="card-text text-white" style="border-bottom: 1px solid;"><?php echo $count ?> . {{ $task ?? '' }}</p>
+          <?php $count += 1 ?>
           @endforeach
         </div>
       </div>
       <div class="card card-memo" style="width: 18rem;">
         <div class="card-body">
           <h5 class="card-title">メモ</h5>
+          <?php $count = 1; ?>
           @foreach ($memos as $memo)
-          <p class="card-text">{{ $memo->memo_title ?? '' }}</p>
+          <p class="card-text" style="border-bottom: 1px solid;"><?php echo $count ?> . {{ $memo ?? '' }}</p>
+          <?php $count += 1 ?>
           @endforeach
         </div>
       </div>
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">本日の予定を確認する</h5>
-          <p class="card-text">{{ $calendar->calendar_body ?? '' }}</p>
+      <div class="card" style="width: 18rem; background: #7d7d7d;">
+        <div class="card-body text-white">
+          <h5 class="card-title">本日の予定</h5>
+          <p class="card-text text-white">{{ $calendar ?? '' }}</p>
         </div>
       </div>
     </div>

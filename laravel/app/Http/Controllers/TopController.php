@@ -14,11 +14,21 @@ class TopController extends Controller
     public function showTop()
     {
 
-        // todo
-        $tasks = Todo::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+        // todo 上位５件表示 ここでtaskのコメント数制限するのはあり
+        $tasks = Todo::where('user_id', Auth::id())->orderBy('created_at', 'desc')->take(5)->get();
+        $taskBodyArray = array();
+        foreach ($tasks as $task) {
+            // 表示文字数を制限するために再度配列に格納し直す
+            $taskBodyArray[] = TopController::textLimit($task->todo_body, 20);
+        }
 
-        // memo
-        $memos = Memo::where('user_id', Auth::id())->orderBy('updated_at', 'desc')->get();
+        // memo 上位５件表示 ここでタイトル数制限するのはあり
+        $memos = Memo::where('user_id', Auth::id())->orderBy('updated_at', 'desc')->take(5)->get();
+        $memoTitleArray = array();
+        foreach ($memos as $memo) {
+            // 表示文字数を制限するために再度配列に格納し直す
+            $memoTitleArray[] = TopController::textLimit($memo->memo_title, 20);
+        }
 
         // UNIX TIMESTAMPを取得
         $timeStamp = time();
@@ -27,12 +37,16 @@ class TopController extends Controller
 
         // calendar
         $calendar = Calendar::where('user_id', Auth::id())->where('calendar_field', $date)->first();
+        // 表示文字数を制限するために再度変数に格納し直す
+        $calendarBody = "";
+        if ($calendar) $calendarBody = TopController::textLimit($calendar->calendar_body, 150);
 
         // study_times
         $times = StudyTime::where('user_id', Auth::id())->get();
 
         $total = 0;
         foreach ($times as $time) {
+            // 全ての時間を合計して代入
             $total += $time->time;
         }
 
@@ -41,9 +55,9 @@ class TopController extends Controller
         }
 
         return view('top', [
-            'tasks' => $tasks,
-            'memos' => $memos,
-            'calendar' => $calendar,
+            'tasks' => $taskBodyArray,
+            'memos' => $memoTitleArray,
+            'calendar' => $calendarBody,
             'total' => $total
         ]);
     }
@@ -59,5 +73,19 @@ class TopController extends Controller
         ]);
 
         return redirect()->route('top');
+    }
+
+
+    // TODO https://stackoverflow.com/questions/32870243/call-to-undefined-function-app-http-controllers-function-name
+    // 文字数制限
+    public static function textLimit($text, $limit = 15)
+    {
+        $todoText = $text;
+        if (mb_strlen($text) > $limit) {
+            // 文字の末尾に「・・・」をつける
+            $text = mb_substr($text, 0, $limit) . "…";
+        }
+
+        return $text;
     }
 }
