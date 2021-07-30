@@ -22,11 +22,7 @@
             {{ Auth::user()->name }}様
           </a>
           <div class="dropdown-menu dropdown-menu-right dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-            <!-- <button class="dropdown-item" type="button">
-              ・・・
-            </button> -->
-            <div class="dropdown-divider"></div>
-            <button form="logout-button" class="dropdown-item" type="submit">
+            <button form="logout-button" class="dropdown-item mt-1" type="submit">
               ログアウト
             </button>
           </div>

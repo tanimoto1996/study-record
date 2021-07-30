@@ -30,11 +30,13 @@
           <div class="left-memo-list list-group-flush p-0">
             <a href="{{ route('memo.select', ['id' => $memo->id]) }}" class="list-group-item list-group-item-action @if ($select_memo) {{ $select_memo->id == $memo->id ? 'active' : '' }} @endif">
               <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{ $memo->memo_title }}</h5>
+                <!-- タイトルを -->
+                <h5 class="mb-1">{{ $memo_text_limit_array[$memo->id][0] ?? '' }}</h5>
                 <small>{{ $memo->updated_at }}</small>
               </div>
               <p class="mb-1">
-                @if(mb_strlen($memo->content) <= 100) {{ $memo->memo_body }} @else {{ mb_substr($memo->memo_body , 0, 100) . "..." }} @endif </p>
+                {{ $memo_text_limit_array[$memo->id][1] ?? '' }}
+              </p>
             </a>
           </div>
           @endforeach
@@ -56,8 +58,8 @@
             </div>
           </form>
           @else
-          <div>
-            メモを新規作成するか選択してください
+          <div class="mt-3 ml-3 text-danger">
+            <i class="fas fa-long-arrow-alt-left"></i>メモを新規作成するか選択してください
           </div>
           @endif
         </div>

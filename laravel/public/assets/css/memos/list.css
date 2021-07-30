@@ -1,9 +1,10 @@
 .input-area {
   flex-flow: column;
+  height: 85%;
 }
 
 .input-area textarea#memo-body {
-  padding-bottom: 400px;
+  height: 100%;
 }
 
 .input-area input#memo-title,

@@ -21,8 +21,8 @@
         <!-- タスク検索 フォーム -->
         <form class="form-inline" action="{{ route('todo.create') }}" method="post">
           @csrf
-          <input type="text" class="form-control" name="todo_body" placeholder="新しいタスクを追加する" value="{{ old('todoBody') }}">
-          <button type="submit" class="btn btn-primary ml-0 pb-2 pt-2 pr-4 pl-4" id="taskAdd">追加</button>
+          <input type="text" class="form-control rounded-0" name="todo_body" placeholder="新しいタスクを追加する" value="{{ old('todoBody') }}">
+          <button type="submit" class="btn btn-primary ml-0 pr-4 pl-4 rounded-0" id="taskAdd">追加</button>
         </form>
 
         <!-- タスク一覧 -->
