@@ -13,7 +13,7 @@
   @include('components.sidebar')
 
   <div class="main-container">
-    <div class="card col-md-10 mt-5 pr-0 pl-0 todo-list-container">
+    <div class="card col-md-5 mt-5 pr-0 pl-0 todo-list-container">
       <div class="card-header">
         Todo List
       </div>
@@ -22,34 +22,40 @@
         <form class="form-inline" action="{{ route('todo.create') }}" method="post">
           @csrf
           <input type="text" class="form-control" name="todo_body" placeholder="新しいタスクを追加する" value="{{ old('todoBody') }}">
-          <button type="submit" class="btn btn-primary pb-2 pt-2 pr-4 pl-4" id="taskAdd">追加</button>
+          <button type="submit" class="btn btn-primary ml-0 pb-2 pt-2 pr-4 pl-4" id="taskAdd">追加</button>
         </form>
 
-        @foreach ($tasks as $task)
-        <div {!! ($task->todo_status ? 'class="item-row active"' : '') !!}>
+        <!-- タスク一覧 -->
+        <div class="task">
+          <ul class="task-list">
+            @foreach ($tasks as $task)
+            <li class="task-item @if ($task->todo_status) {{ 'item-row active' }} @endif">
 
-          @empty( $task->todo_status )
-          <input type="checkbox" class="taskStatus" name="todo_status" data-id="{{ $task->id }}">
-          @else
-          <input type="checkbox" class="taskStatus" name="todo_status" data-id="{{ $task->id }}" checked>
-          @endempty
+              <form class="task-post-form" method="post">
+                @csrf
+                <div class="d-flex">
+                  <div class="form-check form-check-inline">
+                    <input type="checkbox" class="taskStatus" name="todo_status" data-id="{{ $task->id }}" @if ($task->todo_status) checked @endif>
+                    <label class="form-check-label" for="inlineCheckbox1"></label>
+                  </div>
+                  <!-- タスク編集 フォーム -->
+                  <div class="task-update">
+                    @method('patch')
+                    <input type="text" formaction="{{ route('todo.update', ['task_id' => $task->id]) }}" data-id="{{ $task->id }}" name="todo_body" class="body d-inline @if ($task->todo_status) {{ 'showLineCancel' }} @endif" value="{{ $task->todo_body }}" @if ($task->todo_status) disabled @endif>
+                  </div>
+                </div>
 
-          <!-- タスク編集 フォーム -->
-          <form class="d-inline task-update" action="{{ route('todo.update', ['task_id' => $task->id]) }}" method="post">
-            @method('patch')
-            @csrf
-            <input type="text" class="body" name="todo_body" class="d-inline" value="{{ $task->todo_body }}">
-          </form>
+                <!-- タスク削除 フォーム -->
+                <div class="task-delete">
+                  @method('delete')
+                  <button type="submit" formaction="{{ route('todo.delete', ['task_id' => $task->id]) }}"><i class="fas fa-trash-alt"></i></button>
+                </div>
+              </form>
 
-          <!-- タスク削除 フォーム -->
-          <form class="d-inline" action="{{ route('todo.delete', ['task_id' => $task->id]) }}" method="post">
-            @method('delete')
-            @csrf
-            <input type="submit" class="d-inline" value="削除">
-          </form>
-
+            </li>
+            @endforeach
+          </ul>
         </div>
-        @endforeach
       </div>
     </div>
   </div>

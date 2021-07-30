@@ -16,7 +16,10 @@ Route::prefix('todo')->name('todo.')->group(function () {
         Route::post('/', 'TodoController@taskCreate')->name('create');
         Route::patch('/{task_id}', 'TodoController@taskUpdate')->name('update');
         Route::delete('/{task_id}', 'TodoController@taskDelete')->name('delete');
+
+        // ここからajax通信
         route::post('/{task_id}/statusUpdate', 'TodoController@taskStatusUpdate')->name('statusUpdate');
+        route::post('/{task_id}/bodyUpdate', 'TodoController@taskBodyUpdate')->name('taskBodyUpdate');
     });
 });
 
