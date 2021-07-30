@@ -9,6 +9,11 @@
   flex: 1;
 }
 
+.todo-list-container #taskAdd {
+  padding-top: 9px;
+  padding-bottom: 10px;
+}
+
 .task .task-list {
   display: flex;
   flex-wrap: nowrap;

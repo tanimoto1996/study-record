@@ -27,7 +27,7 @@ class TopController extends Controller
         $memoTitleArray = array();
         foreach ($memos as $memo) {
             // 表示文字数を制限するために再度配列に格納し直す
-            $memoTitleArray[] = TopController::textLimit($memo->memo_title, 20);
+            $memoTitleArray[] = TopController::textLimit($memo->memo_title, 10);
         }
 
         // UNIX TIMESTAMPを取得
