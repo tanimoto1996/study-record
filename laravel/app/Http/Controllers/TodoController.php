@@ -68,4 +68,16 @@ class TodoController extends Controller
 
         return redirect()->route('todo.list');
     }
+
+    // タスクのステータス変更
+    public function taskBodyUpdate(Request $request)
+    {
+        $task = Todo::where('id', $request->task_id);
+
+        $task->update([
+            'todo_body' => $request->task_body
+        ]);
+
+        return redirect()->route('todo.list');
+    }
 }

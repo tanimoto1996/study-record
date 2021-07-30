@@ -1,5 +1,5 @@
 .todo-list-container .item-row.active {
-  opacity: 0.3;
+  opacity: 0.5;
 }
 
 .todo-list-container {
@@ -9,7 +9,57 @@
   flex: 1;
 }
 
-.todo-list-container .task-update input.body {
-  width: 70%;
-  margin-top: 40px;
+.task .task-list {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-left: 0px;
+  padding-left: 0px;
+  width: 100%;
+}
+
+.task .task-list .task-item {
+  background: #dedede;
+  border-radius: 5px;
+  height: 50px;
+  padding: 10px;
+  transition: all 0.5s 0s ease;
+}
+
+.task .task-list .task-item .task-post-form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-item .task-update {
+  width: 300px;
+}
+
+.task-item .task-update input[type="text"] {
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  margin-top: 3px;
+  width: 100%;
+}
+
+.task-item .task-update input[type="text"]:focus-visible {
+  outline: none;
+}
+
+.task-item .task-delete button {
+  border-width: 0;
+  display: inline;
+  padding: 0 0 0 30px;
+  position: relative;
+}
+
+.task-item .task-delete button i {
+  color: red;
+  left: 10px;
+  margin-top: -0.5em;
+  position: absolute;
+  top: 50%;
+}
+
+.task-item .showLineCancel {
+  text-decoration: line-through;
 }
