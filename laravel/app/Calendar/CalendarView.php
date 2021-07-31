@@ -85,11 +85,16 @@ class CalendarView
       $html[] = '<tr class="' . $week->getClassName() . '">';
       $days = $week->getDays();
       foreach ($days as $day) {
+        $date = $this->carbon->format('Yn') . $day->getDay();
         $html[] = '<td class="' . $day->getClassName() . '">';
         $html[] = $day->render();
-        $html[] = '<input type="hidden" value="' . $this->carbon->format('Yn') . $day->getDay() . '">';
-        if (array_search($this->carbon->format('Yn') . $day->getDay(), $calendar_field_array)) {
-          $html[] = '<div>' . $calendar_date[$this->carbon->format('Yn') . $day->getDay()]  . '</div>';
+        $html[] = '<input type="hidden" value="' . $date . '">';
+        if (
+          array_search($date, $calendar_field_array) ||
+          array_search($date, $calendar_field_array) === 0
+        ) {
+          // カレンダー一覧に内容を出す
+          $html[] = '<div>' . $calendar_date[$date]  . '</div>';
         }
         $html[] = '</td>';
       }

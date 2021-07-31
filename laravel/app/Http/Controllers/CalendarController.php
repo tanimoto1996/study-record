@@ -15,6 +15,9 @@ class CalendarController extends Controller
         //クエリーのdateを受け取る
         $date = $request->input("date");
 
+        // udpate時の月に戻す
+        if (isset($request->paramDate)) $date = $request->paramDate;
+
         //dateがYYYY-MMの形式かどうか判定する
         if ($date && preg_match("/^[0-9]{4}-[0-9]{2}$/", $date)) {
             $date = strtotime($date . "-02");
@@ -35,7 +38,6 @@ class CalendarController extends Controller
     // カレンダーモーダル表示
     public function calendarEdit(Request $request)
     {
-
         $calendar = Calendar::where('user_id', Auth::id())->where('calendar_field', $request->calendar_id)->first();
 
         // クリックし日付の内容を返す
@@ -43,20 +45,23 @@ class CalendarController extends Controller
             'calendar' => $calendar,
             'id' => $request->calendar_id,
             'title' => $request->title,
+            'paramDate' => $request->parameter_date,
         ]);
     }
 
+    // 予定作成
     public function calendarCreate(Calendar $calendars, Request $request)
-    {
+    {;
         $calendars->calendar_body = $request->calendar_body;
         $calendars->calendar_field = $request->calendar_field;
         $calendars->user_id = Auth::id();
         $calendars->save();
 
-        // カレンダー、一覧に戻る
-        return redirect()->route('calendar.index');
+        // カレンダー、一覧に戻る ここでURLパラメーターを見て,calendar.indexに投げる
+        return redirect()->route('calendar.index', ['paramDate' => $request->param_date]);
     }
 
+    // 予定更新
     public function calendarUpdate(Calendar $calendars, Request $request)
     {
         $calendar = Calendar::where('user_id', Auth::id())->where('calendar_field', $request->calendar_field)->first();
@@ -67,6 +72,6 @@ class CalendarController extends Controller
         $calendar->save();
 
         // カレンダー、一覧に戻る
-        return redirect()->route('calendar.index');
+        return redirect()->route('calendar.index', ['paramDate' => $request->param_date]);
     }
 }
