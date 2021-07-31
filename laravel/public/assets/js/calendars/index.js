@@ -4,6 +4,9 @@ $(function () {
   $('.day-field').on('click', function () {
     // 年月日を取得（フィールドが一意にするため）
     const date = $(this).find('input').val();
+    // 更新後、更新前の月に戻れるようにパラメーター取得
+    const parameter = $(location).attr('search');
+    const pramDate = parameter.match(/[0-9\-]+$/);
 
     //PC
     var cbW = '520px';
@@ -16,7 +19,8 @@ $(function () {
       height: cbH,
       overlayClose: true,
       escKey: false,
-      transition: 'none',
+      close: "close",
+      transition: 'elastic',
       inline: true,
       onOpen: function () {
         var ycoord = $(window).scrollTop();
@@ -55,6 +59,7 @@ $(function () {
           url: 'calendar/edit',
           data: {
             calendar_id: date,
+            parameter_date: pramDate,
           },
         }).done(function (data) {
           //通信が成功したとき

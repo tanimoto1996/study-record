@@ -21,15 +21,15 @@
           <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ Auth::user()->name }}様
           </a>
-          <div class="dropdown-menu dropdown-menu-right dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-            <button form="logout-button" class="dropdown-item mt-1" type="submit">
-              ログアウト
-            </button>
+          <div class="dropdown-menu dropdown-menu-right dropdown-primary w-25" aria-labelledby="navbarDropdownMenuLink">
+            <form id="logout-button" method="POST" action="{{ route('logout') }}">
+              @csrf
+              <button form="logout-button" class="dropdown-item mt-1" type="submit">
+                ログアウト
+              </button>
+            </form>
           </div>
         </li>
-        <form id="logout-button" method="POST" action="{{ route('logout') }}">
-          @csrf
-        </form>
         </a>
         </li>
         @endguest
