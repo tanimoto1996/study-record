@@ -41,7 +41,7 @@
                   <!-- タスク編集 フォーム -->
                   <div class="task-update">
                     @method('patch')
-                    <input type="text" formaction="{{ route('todo.update', ['task_id' => $task->id]) }}" data-id="{{ $task->id }}" name="todo_body" class="body d-inline @if ($task->todo_status) {{ 'showLineCancel' }} @endif" value="{{ $task->todo_body }}" @if ($task->todo_status) disabled @endif>
+                    <input type="text" data-id="{{ $task->id }}" name="todo_body" class="body d-inline @if ($task->todo_status) {{ 'showLineCancel' }} @endif" value="{{ $task->todo_body }}" @if ($task->todo_status) disabled @endif>
                   </div>
                 </div>
 
