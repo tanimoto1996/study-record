@@ -13,6 +13,7 @@ final class ShowTopPageUseCase
 {
 
   use helperFunctions;
+
   /**
    * 「TODO」一覧取得
    * ・上位５件のみ表示、表示制限２０文字あり。

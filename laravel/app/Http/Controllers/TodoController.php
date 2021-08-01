@@ -3,79 +3,82 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateTodoRequest;
 use App\Models\Todo;
-use Illuminate\Support\Facades\Auth;
+use App\Todo\UseCase\TaskCreateUseCase;
 
 class TodoController extends Controller
 {
-    // トップ画面(Todo)
-    public function showTodoList()
+    /**
+     * 一覧画面（TODO）
+     * @param App\Models\Todo $todos
+     * @return Response
+     */
+    public function showTodoList(Todo $todos)
     {
-        $tasks = Todo::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+        $tasks = $todos->where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
 
         return view("todos.list", [
             'tasks' => $tasks,
         ]);
     }
 
-    // タスク作成
-    public function taskCreate(CreateTodoRequest $request)
+    /**
+     * タスク作成
+     * @param App\Http\Requests\CreateTodoRequest $request
+     * @param App\Models\Todo $todos
+     * @return Response
+     */
+    public function taskCreate(CreateTodoRequest $request, TaskCreateUseCase $tasks)
     {
-        // TODO 登録の処理を usecaseファイルに記述
-        $tasks = Todo::where('user_id', Auth::id());
-
-        // タスクの数が５個以下ならタスクを作成する
-        if ($tasks->count() < 5) {
-            $tasks->create([
-                'todo_body' => $request->todo_body,
-                'todo_status' => '0',
-                'user_id' => Auth::id()
-            ]);
-        }
+        $tasks->handle($request->todo_body);
 
         return redirect()->route('todo.list');
     }
 
-    // タスク編集
-    public function taskUpdate(CreateTodoRequest $request, int $task_id)
+    /**
+     * タスク削除
+     * @param App\Models\Todo $todos
+     * @param integer $task_id
+     * @return Response
+     */
+    public function taskDelete(Todo $todos, int $task_id)
     {
-        $task = Todo::where('id', $task_id);
-
-        $task->update([
-            'todo_body' => $request->todo_body,
-        ]);
+        $todos->where('id', $task_id)->delete();
 
         return redirect()->route('todo.list');
     }
 
-    // タスク削除
-    public function taskDelete(int $task_id)
+    /**
+     * タスクの内容を更新（ajax）
+     * @param App\Models\Todo $todos
+     * @param Illuminate\Http\Request $request
+     * @return Response
+     */
+    public function taskBodyUpdate(Todo $todos, Request $request)
     {
-        Todo::where('id', $task_id)->delete();
-
-        return redirect()->route('todo.list');
-    }
-
-    // タスクのステータス変更
-    public function taskStatusUpdate(Request $request)
-    {
-        $task = Todo::where('id', $request->task_id);
-
-        $task->update([
-            'todo_status' => (int)$request->task_checkd
-        ]);
-
-        return redirect()->route('todo.list');
-    }
-
-    // タスクのステータス変更
-    public function taskBodyUpdate(Request $request)
-    {
-        $task = Todo::where('id', $request->task_id);
+        $task = $todos->where('id', $request->task_id);
 
         $task->update([
             'todo_body' => $request->task_body
+        ]);
+
+        return redirect()->route('todo.list');
+    }
+
+    /**
+     * タスクのステータス変更（ajax）
+     * @param App\Models\Todo $todos
+     * @param Illuminate\Http\Request $request
+     * @return Response
+     */
+    public function taskStatusUpdate(Todo $todos, Request $request)
+    {
+        $task = $todos->where('id', $request->task_id);
+
+        $task->update([
+            'todo_status' => (int)$request->task_checkd
         ]);
 
         return redirect()->route('todo.list');
