@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\lib\helperFunctions;
 use App\Models\Memo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class MemoController extends Controller
 {
+    use helperFunctions;
+
     // メモトップ画面
     public function showMemoList(Memo $memos)
     {
@@ -16,7 +19,7 @@ class MemoController extends Controller
         $memoTextLimitArray = array();
         foreach ($memos as $memo) {
             // 表示文字数を制限するために再度配列に格納し直す
-            $memoList = array(TopController::textLimit($memo->memo_title, 15), TopController::textLimit($memo->memo_body, 50));
+            $memoList = array($this->textLimit($memo->memo_title, 15), $this->textLimit($memo->memo_body, 50));
             $memoTextLimitArray[$memo->id] = $memoList;
         }
 

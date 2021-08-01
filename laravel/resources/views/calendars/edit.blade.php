@@ -21,7 +21,7 @@
     <input type="hidden" name="calendar_field" value="{{ $id }}">
     <input type="hidden" name="param_date" value="{{ $paramDate[0] }}">
     <div class="form-group m-0">
-      <textarea class="w-100" name="calendar_body" id="calendarSchedule" cols="30" rows="10">{{ $calendar->calendar_body }}</textarea>
+      <textarea class="w-100" name="calendar_body" id="calendarSchedule" cols="30" rows="9">{{ $calendar->calendar_body }}</textarea>
     </div>
     <div class="text-right">
       <button type="submit" class="btn btn-primary w-100">送信</button>
@@ -34,7 +34,7 @@
     <input type="hidden" name="calendar_field" value="{{ $id }}">
     <input type="hidden" name="param_date" value="{{ $paramDate[0] }}">
     <div class="form-group m-0">
-      <textarea class="w-100" name="calendar_body" id="calendarSchedule" cols="30" rows="10"></textarea>
+      <textarea class="w-100" name="calendar_body" id="calendarSchedule" cols="30" rows="9"></textarea>
     </div>
     <div class="text-right">
       <button type="submit" class="btn btn-primary w-100">送信</button>
