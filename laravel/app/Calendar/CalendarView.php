@@ -30,6 +30,7 @@ class CalendarView
   {
     return $this->carbon->copy()->addMonthsNoOverflow()->format('Y-m');
   }
+
   /**
    * 前の月
    */
@@ -39,7 +40,9 @@ class CalendarView
   }
 
 
-  // カレンダーを出力
+  /**
+   * カレンダー出力
+   */
   function render()
   {
 
@@ -108,7 +111,9 @@ class CalendarView
     return implode("", $html);
   }
 
-  // １ヶ月のカレンダーを取得する
+  /**
+   * １ヶ月のカレンダーを取得する
+   */
   protected function getWeeks()
   {
     $weeks = [];
