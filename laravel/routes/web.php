@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+// URLを「 / 」だけにした場合、TOP画面に遷移する
+Route::get('/', 'TopController@showTop');
+
 // トップページ
 Route::group(['middleware' => 'auth'], function () {
     Route::get('top', 'TopController@showTop')->name('top');

@@ -1,6 +1,6 @@
 .input-area {
   flex-flow: column;
-  height: 85%;
+  height: 80%;
 }
 
 .input-area textarea#memo-body {
