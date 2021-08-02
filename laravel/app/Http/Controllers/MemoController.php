@@ -4,33 +4,33 @@ namespace App\Http\Controllers;
 
 use App\lib\helperFunctions;
 use App\Models\Memo;
+use App\Memo\UseCase\ShowMemoListUseCase;
+use App\Http\Requests\CreateMemoRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class MemoController extends Controller
 {
+
     use helperFunctions;
 
-    // メモトップ画面
-    public function showMemoList(Memo $memos)
+    /**
+     * メモ一覧画面
+     * @param App\Memo\UseCase\ShowMemoListUseCase $useCase
+     * @return Response
+     */
+    public function showMemoList(ShowMemoListUseCase $useCase)
     {
-        $memos = $memos->where('user_id', Auth::id())->orderBy('updated_at', 'desc')->get();
-
-        $memoTextLimitArray = array();
-        foreach ($memos as $memo) {
-            // 表示文字数を制限するために再度配列に格納し直す
-            $memoList = array($this->textLimit($memo->memo_title, 15), $this->textLimit($memo->memo_body, 50));
-            $memoTextLimitArray[$memo->id] = $memoList;
-        }
-
         return view("memos.list", [
-            'memos' => $memos,
-            'memo_text_limit_array' => $memoTextLimitArray,
             'select_memo' => session()->get('select_memo'),
-        ]);
+        ] + $useCase->handle());
     }
 
-    // メモ作成
+    /**
+     * メモ作成
+     * @param App\Models\Memo $memos
+     * @return Response
+     */
     public function memoCreate(Memo $memos)
     {
         $memos->create([
@@ -42,8 +42,14 @@ class MemoController extends Controller
         return redirect()->route('memo.list');
     }
 
-    // メモ選択
-    public function memoSelect(Memo $memos, Request $request)
+    /**
+     * メモ選択
+     * セッションでどのメモを選択しているかの情報を保持する
+     * @param App\Models\Memo $memos
+     * @param App\Http\Requests\CreateMemoRequest $request
+     * @return Response
+     */
+    public function memoSelect(Memo $memos, CreateMemoRequest $request)
     {
         $memo = $memos->find($request->id);
 
@@ -52,22 +58,35 @@ class MemoController extends Controller
         return redirect()->route('memo.list');
     }
 
-    // メモ更新
-    public function memoUpdate(Memo $memos, Request $request)
+    /**
+     * メモ更新
+     * セッションで更新後のメモを選択する
+     * @param App\Models\Memo $memos
+     * @param App\Http\Requests\CreateMemoRequest $request
+     * @return Response
+     */
+    public function memoUpdate(Memo $memos, CreateMemoRequest $request)
     {
         $memo = $memos->find($request->edit_id);
 
-        $memo->memo_title = $request->edit_title;
-        $memo->memo_body = $request->edit_body;
-        $memo->save();
+        $memo->update([
+            'memo_title' => $request->edit_title,
+            'memo_body' => $request->edit_body,
+        ]);
 
         session()->put('select_memo', $memo);
 
         return redirect()->route('memo.list');
     }
 
-    // メモ削除
-    public function memoDelete(Memo $memos, Request $request)
+    /**
+     * メモ削除
+     * セッションも削除
+     * @param App\Models\Memo $memos
+     * @param App\Http\Requests\CreateMemoRequest $request
+     * @return Response
+     */
+    public function memoDelete(Memo $memos, CreateMemoRequest $request)
     {
         $memo = $memos->find($request->edit_id);
         $memo->delete();
@@ -75,17 +94,5 @@ class MemoController extends Controller
         session()->remove('select_memo');
 
         return redirect()->route('memo.list');
-    }
-
-    // 文字数制限
-    public static function textLimit($text, $limit = 15)
-    {
-        $todoText = $text;
-        if (mb_strlen($text) > $limit) {
-            // 文字の末尾に「・・・」をつける
-            $text = mb_substr($text, 0, $limit) . "…";
-        }
-
-        return $text;
     }
 }

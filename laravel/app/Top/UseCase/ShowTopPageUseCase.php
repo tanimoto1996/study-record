@@ -45,7 +45,8 @@ final class ShowTopPageUseCase
     $memoTitleArray = array();
     foreach ($memos as $memo) {
       // 表示文字数を制限するために再度配列に格納し直す。
-      $memoTitleArray[] = $this->textLimit($memo->memo_title, 10);
+      $isTitle = $memo->memo_title;
+      if ($isTitle) $memoTitleArray[] = $this->textLimit($memo->memo_title, 10);
     }
 
     // 「カレンダー」文字数制限する。
