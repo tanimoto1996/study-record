@@ -64,17 +64,20 @@
     <!-- 学習時間 -->
     <div class="card study-total-time w-75">
       <div class="card-body">
-        <h5 class="card-title text-muted text-center">学習時間</h5>
-        <form action="{{ route('top.time') }}" method="post">
-          @csrf
-          <input type="time" name="study_time" value="00:00">
-          <input type="submit" value="送信">
-        </form>
-        <p class="card-text">合計{{ $total }}分</p>
+        <div class="study-time-wrap">
+          <h5 class="card-title text-muted">学習時間<span class="card-text">（合計{{ $total }}分）</span></h5>
+          <form action="{{ route('top.time') }}" method="post">
+            @csrf
+            <div class="mt-3">
+              <input type="time" class="" name="study_time" value="00:00" required>
+              <input type="submit" class="btn btn-primary btn btn-primary pt-2 pb-2 pr-4 pl-4" value="送信">
+            </div>
+          </form>
+        </div>
+
         <div class="canvas-contrainer">
           <canvas id="myChart"></canvas>
         </div>
-
       </div>
     </div>
 
