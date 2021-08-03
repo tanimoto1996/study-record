@@ -7,9 +7,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class StudyTime extends Model
 {
-    // timestapmは使用しない
-    public $timestamps = false;
-
     /**
      * 複数代入する属性
      *
