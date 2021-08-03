@@ -25,8 +25,11 @@ final class ShowTopPageUseCase
    * ・ユニックスタイムにて、時間を照らし合わせる。
    * ・表示制限１５０文字あり。
    * 
-   * 「学習時間」取得
+   * 「合計学習時間」取得
    * ・DBに合計学習時間がないので、計算して出力する。
+   * 
+   *  「１日の学習時間」取得
+   * ・DBに１日の学習時間がないので、計算して出力する。
    * 
    * @return array 
    */
@@ -59,7 +62,7 @@ final class ShowTopPageUseCase
     $calendarBody = "";
     if ($calendar) $calendarBody = $this->textLimit($calendar->calendar_body, 150);
 
-    // 学習時間
+    // 「学習時間」
     $times = StudyTime::where('user_id', Auth::id())->get();
     $total = 0;
     foreach ($times as $time) {
@@ -72,11 +75,47 @@ final class ShowTopPageUseCase
       $total = substr_replace($total, '時間', mb_strlen($total) - 2, 0);
     }
 
+    // １日ごとの合計を計算して、２次元配列で取得しておく。
+    $studyTimeDay = [];
+    $replaceTimeArray = [];
+    foreach ($times as $time) {
+      // 3時間 -> 「3.00」と表示する
+      $replaceTime = substr_replace($time->time, '.', mb_strlen($time->time) - 2, 0);
+      // 「8/1」と表示する
+      $date = date('n/j',  strtotime($time->created_at));
+      // array(「3.00」, 「5.00」）
+      $replaceTimeArray =  $studyTimeDay[$date] ?? array();
+      $replaceTimeArray[] = (float)$replaceTime;
+      // 「8/1」 = array(「3.00」, 「5.00」） となる
+      $studyTimeDay[$date] = $replaceTimeArray;
+    }
+
+    // 今日から１週間前の日付を「8/1」の形で取得する
+    $dateWeek = [];
+    for ($i = 0; $i <= 6; $i++) {
+      $date = date('n/j');
+      $date = strtotime("-{$i} day", strtotime($date));
+      $dateWeek[$i] = date('n/j', $date);
+    }
+
+    // １週間前までの１日ごとの学習時間を配列に格納
+    $chartStudyTimeDey = [];
+    foreach ($dateWeek as $dw) {
+      if (isset($studyTimeDay[$dw])) {
+
+        $chartStudyTimeDey[] = array_sum($studyTimeDay[$dw]);
+      } else {
+        // 時間がない時に、グラフで0時間と記載するので0を入れる
+        $chartStudyTimeDey[] = 0;
+      }
+    }
+
     return [
       'tasks' => $taskBodyArray,
       'memos' => $memoTitleArray,
       'calendar' => $calendarBody,
-      'total' => $total
+      'total' => $total,
+      'chartStudyTimeDey' => $chartStudyTimeDey
     ];
   }
 }

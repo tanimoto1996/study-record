@@ -17,6 +17,7 @@
   <div class="main-container">
     <div class="card-content">
       <div class="card" style="width: 18rem;">
+        <!-- TODO -->
         <div class="card-body bg-info text-white">
           <h5 class="card-title"><a href="{{ route('todo.list') }}" class="text-white">TODO</a></h5>
           @if($tasks)
@@ -30,6 +31,8 @@
           @endif
         </div>
       </div>
+
+      <!-- メモ -->
       <div class="card card-memo" style="width: 18rem;">
         <div class="card-body">
           <h5 class="card-title"><a href="{{ route('memo.list') }}" class="text-muted">メモ</a></h5>
@@ -44,6 +47,8 @@
           @endif
         </div>
       </div>
+
+      <!-- カレンダー -->
       <div class="card" style="width: 18rem; background: #7d7d7d;">
         <div class="card-body text-white">
           <h5 class="card-title"><a href="{{ route('calendar.index') }}" class="text-white">本日の予定</a></h5>
@@ -56,23 +61,35 @@
       </div>
     </div>
 
-    <!-- ここのデザインはグラフでもいいかも？ -->
+    <!-- 学習時間 -->
     <div class="card study-total-time w-75">
       <div class="card-body">
-        <h5 class="card-title text-muted">学習時間</h5>
+        <h5 class="card-title text-muted text-center">学習時間</h5>
         <form action="{{ route('top.time') }}" method="post">
           @csrf
           <input type="time" name="study_time" value="00:00">
           <input type="submit" value="送信">
         </form>
         <p class="card-text">合計{{ $total }}分</p>
+        <div class="canvas-contrainer">
+          <canvas id="myChart"></canvas>
+        </div>
+
       </div>
     </div>
+
+    <!-- グラフで使う１日の時間の情報を持っておく -->
+    @for($i = 0; $i <= 6; $i++) <span class="d-none" id="studyTime{{ $i }}">{{ $chartStudyTimeDey[$i] }}</span>
+      @endfor
+
+
+
   </div>
 </div>
 
 @endsection
 
 @section('js')
-<!-- <script src="{{ asset('assets/js/header.js') }}"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+<script src="{{ asset('assets/js/tops/top.js') }}"></script>
 @endsection
