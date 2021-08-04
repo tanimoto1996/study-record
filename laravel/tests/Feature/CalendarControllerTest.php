@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Calendar\CalendarView;
 use App\Models\User;
 use App\Models\Memo;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -44,7 +45,7 @@ class CalendarControllerTest extends TestCase
         //第二引数にPOST値の配列を渡す
         $response = $this->actingAs($user)->post('/calendar/create', [
             'calendar_body' => '今日は英語を勉強する',
-            'calendar_field' => '2021726',
+            'calendar_field' => '2021826',
             'user_id' => $user->id
         ]);
 

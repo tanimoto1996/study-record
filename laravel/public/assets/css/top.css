@@ -24,14 +24,6 @@
   font-size: 16px;
 }
 
-.canvas-contrainer {
-  position: relative;
-  width: calc(100% - 40px);
-  height: 395px;
-  overflow: hidden;
-  margin: 20px;
-}
-
 .study-time-wrap {
   display: flex;
   align-items: center;
