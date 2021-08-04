@@ -48,7 +48,13 @@ class MemoControllerTest extends TestCase
             'user_id' => $user->id
         ]);
 
-        //登録処理が完了して、一覧画面にリダイレクトすることを検証
-        $response->assertRedirect(route('memo.list'));
+        // post後にTODO画面に遷移する
+        $response = $this->get('/memo');
+
+        // 遷移が成功すると200ステータスを返す
+        $response->assertStatus(200);
+
+        // POSTした「新規メモ」文字があればテスト成功
+        $response->assertSee("新規メモ");
     }
 }

@@ -41,13 +41,19 @@ class TodoControllerTest extends TestCase
         $user = factory(User::class)->create();
 
         //第二引数にPOST値の配列を渡す
-        $response = $this->actingAs($user)->post('/todo', [
+        $this->actingAs($user)->post('/todo', [
             'todo_body' => 'テスト',
             'todo_status' => '0',
             'user_id' => $user->id
         ]);
 
-        //登録処理が完了して、一覧画面にリダイレクトすることを検証
-        $response->assertRedirect(route('todo.list'));
+        // post後にTODO画面に遷移する
+        $response = $this->get('/todo');
+
+        // 遷移が成功すると200ステータスを返す
+        $response->assertStatus(200);
+
+        // POSTした「テスト」文字があればテスト成功
+        $response->assertSee("テスト");
     }
 }
