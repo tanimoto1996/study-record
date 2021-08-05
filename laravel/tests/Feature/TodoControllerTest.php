@@ -121,6 +121,7 @@ class TodoControllerTest extends TestCase
         $this->get(action('TodoController@showTodoList', $data));
         $this->assertDatabaseHas('todos', [
             'todo_body' => '変更しています',
+            'todo_body' => 'notEditTest'
         ]);
     }
 }
