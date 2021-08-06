@@ -57,4 +57,45 @@ class MemoControllerTest extends TestCase
         // POSTした「新規メモ」文字があればテスト成功
         $response->assertSee("新規メモ");
     }
+
+    /**
+     * 一覧画面にタスクがupdate順に表示されているか
+     * ファクトリー作成
+     * @test
+     */
+    // public function testShowTaskDescendingOrder()
+    // {
+    //     // userの情報を生成して取得
+    //     $user = factory(User::class)->create();
+    //     // ログイン済みにする
+    //     $this->actingAs($user);
+
+    //     $firstPost = factory(Todo::class)->create([
+    //         'todo_body' => 'first',
+    //         'todo_status' => '0',
+    //         'user_id' => $user->id,
+    //         'created_at' => '2021-07-20 10:30:00'
+    //     ]);
+
+    //     $secondPost = factory(Todo::class)->create([
+    //         'todo_body' => 'second',
+    //         'todo_status' => '1',
+    //         'user_id' => $user->id,
+    //         'created_at' => '2021-07-30 10:31:00'
+    //     ]);
+
+    //     $thirdPost = factory(Todo::class)->create([
+    //         'todo_body' => 'third',
+    //         'todo_status' => '0',
+    //         'user_id' => $user->id,
+    //         'created_at' => '2021-07-20 10:32:00'
+    //     ]);
+
+    //     // コントローラーで降順に並び替える
+    //     $response = $this->get(action('TodoController@showTodoList'));
+
+    //     // 降順で並んでいるかを確認する
+    //     $expects = array($secondPost->todo_body, $thirdPost->todo_body, $firstPost->todo_body);
+    //     $response->assertSeeInOrder($expects);
+    // }
 }
