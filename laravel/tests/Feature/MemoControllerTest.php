@@ -63,39 +63,39 @@ class MemoControllerTest extends TestCase
      * ファクトリー作成
      * @test
      */
-    // public function testShowTaskDescendingOrder()
-    // {
-    //     // userの情報を生成して取得
-    //     $user = factory(User::class)->create();
-    //     // ログイン済みにする
-    //     $this->actingAs($user);
+    public function testShowMemoUpdateOrder()
+    {
+        // userの情報を生成して取得
+        $user = factory(User::class)->create();
+        // ログイン済みにする
+        $this->actingAs($user);
 
-    //     $firstPost = factory(Todo::class)->create([
-    //         'todo_body' => 'first',
-    //         'todo_status' => '0',
-    //         'user_id' => $user->id,
-    //         'created_at' => '2021-07-20 10:30:00'
-    //     ]);
+        $firstPost = factory(Memo::class)->create([
+            'memo_title' => 'first',
+            'memo_body' => '最初のメモ',
+            'user_id' => $user->id,
+            'updated_at' => '2021-07-21 10:30:00'
+        ]);
 
-    //     $secondPost = factory(Todo::class)->create([
-    //         'todo_body' => 'second',
-    //         'todo_status' => '1',
-    //         'user_id' => $user->id,
-    //         'created_at' => '2021-07-30 10:31:00'
-    //     ]);
+        $secondPost = factory(Memo::class)->create([
+            'memo_title' => 'second',
+            'memo_body' => '２つ目のメモ',
+            'user_id' => $user->id,
+            'updated_at' => '2021-07-23 10:30:00'
+        ]);
 
-    //     $thirdPost = factory(Todo::class)->create([
-    //         'todo_body' => 'third',
-    //         'todo_status' => '0',
-    //         'user_id' => $user->id,
-    //         'created_at' => '2021-07-20 10:32:00'
-    //     ]);
+        $thirdPost = factory(Memo::class)->create([
+            'memo_title' => 'third',
+            'memo_body' => '3つ目のメモ',
+            'user_id' => $user->id,
+            'updated_at' => '2021-07-22 10:30:00'
+        ]);
 
-    //     // コントローラーで降順に並び替える
-    //     $response = $this->get(action('TodoController@showTodoList'));
+        // コントローラーでupdate順に並び替える
+        $response = $this->get(action('MemoController@showMemoList'));
 
-    //     // 降順で並んでいるかを確認する
-    //     $expects = array($secondPost->todo_body, $thirdPost->todo_body, $firstPost->todo_body);
-    //     $response->assertSeeInOrder($expects);
-    // }
+        // 編集順で並んでいるかを確認する
+        $expects = array($secondPost->memo_body, $thirdPost->memo_body, $firstPost->memo_body);
+        $response->assertSeeInOrder($expects);
+    }
 }
