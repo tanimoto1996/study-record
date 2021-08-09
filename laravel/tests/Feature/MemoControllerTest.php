@@ -59,8 +59,7 @@ class MemoControllerTest extends TestCase
     }
 
     /**
-     * 一覧画面にタスクがupdate順に表示されているか
-     * ファクトリー作成
+     * 一覧画面にメモがupdate順に表示されているか
      * @test
      */
     public function testShowMemoUpdateOrder()
