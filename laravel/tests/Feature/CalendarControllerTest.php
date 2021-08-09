@@ -2,9 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Calendar\CalendarView;
 use App\Models\User;
-use App\Models\Memo;
+use App\Models\Calendar;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -55,42 +54,37 @@ class CalendarControllerTest extends TestCase
 
     /**
      * 一覧画面に予定が表示されているか
-     * ファクトリー作成
      * @test
      */
-    // public function testShowTaskDescendingOrder()
-    // {
-    //     // userの情報を生成して取得
-    //     $user = factory(User::class)->create();
-    //     // ログイン済みにする
-    //     $this->actingAs($user);
+    public function testShowTaskDescendingOrder()
+    {
+        // userの情報を生成して取得
+        $user = factory(User::class)->create();
+        // ログイン済みにする
+        $this->actingAs($user);
 
-    //     $firstPost = factory(Todo::class)->create([
-    //         'todo_body' => 'first',
-    //         'todo_status' => '0',
-    //         'user_id' => $user->id,
-    //         'created_at' => '2021-07-20 10:30:00'
-    //     ]);
+        $firstPost = factory(calendar::class)->create([
+            'calendar_body' => '最初のメモ',
+            'calendar_field' => 202185,
+            'user_id' => $user->id
+        ]);
 
-    //     $secondPost = factory(Todo::class)->create([
-    //         'todo_body' => 'second',
-    //         'todo_status' => '1',
-    //         'user_id' => $user->id,
-    //         'created_at' => '2021-07-30 10:31:00'
-    //     ]);
+        $secondPost = factory(calendar::class)->create([
+            'calendar_body' => '２つ目のメモ',
+            'calendar_field' => 202186,
+            'user_id' => $user->id
+        ]);
 
-    //     $thirdPost = factory(Todo::class)->create([
-    //         'todo_body' => 'third',
-    //         'todo_status' => '0',
-    //         'user_id' => $user->id,
-    //         'created_at' => '2021-07-20 10:32:00'
-    //     ]);
+        $thirdPost = factory(calendar::class)->create([
+            'calendar_body' => '3つ目のメモ',
+            'calendar_field' => 202187,
+            'user_id' => $user->id
+        ]);
 
-    //     // コントローラーで降順に並び替える
-    //     $response = $this->get(action('TodoController@showTodoList'));
+        // コントローラーでカレンダーを表示
+        $response = $this->get(action('CalendarController@showCalendar'));
 
-    //     // 降順で並んでいるかを確認する
-    //     $expects = array($secondPost->todo_body, $thirdPost->todo_body, $firstPost->todo_body);
-    //     $response->assertSeeInOrder($expects);
-    // }
+        // カレンダー一覧にPOSTした文字列が表示されているか
+        $response->assertSeeText($firstPost->calendar_body, $secondPost->calendar_body, $thirdPost->calendar_body);
+    }
 }
