@@ -9,7 +9,7 @@
   height: 100%;
 }
 
-ul {
+.side-bar ul {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -18,16 +18,32 @@ ul {
   list-style: none;
 }
 
-ul li {
+.side-bar ul li {
   margin-top: 20px;
 }
 
-ul li a {
+.side-bar ul li a {
   color: #8395a9;
+}
+
+/* サイドバーアイコン */
+.side-bar .icon {
+  color: #e6e6e6;
+  margin-right: 10px;
+}
+
+/* サイドバー文字 */
+.side-bar ul li span.none {
+  display: none;
 }
 
 /* メインの横幅 */
 .main-container {
   background: #f2f4f8;
   width: 85%;
+}
+
+.main-container.large {
+  background: #f2f4f8;
+  width: 94%;
 }
