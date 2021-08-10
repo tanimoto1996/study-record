@@ -34,6 +34,8 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"></script>
   <!-- header.js -->
   <script src="{{ asset('assets/js/header.js') }}"></script>
+  <!-- sidebar.js -->
+  <script src="{{ asset('assets/js/sidebar.js') }}"></script>
   <!-- JavaScript -->
   @yield('js')
 </body>
