@@ -3,7 +3,6 @@
 @section('title', "TODO")
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('assets/css/sidebar.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/todos/list.css') }}">
 @endsection
 

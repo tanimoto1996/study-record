@@ -3,7 +3,6 @@
 @section('title', "カレンダー")
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('assets/css/sidebar.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/calendar/index.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.31/example1/colorbox.min.css" integrity="sha512-qDmL8zJf49wqgbTQEr0nsThYpyQkjc+ulm2zAjRXd/MCoUBuvd19fP2ugx7dnxtvMOzSJ1weNdSE+jbSnA4eWw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection

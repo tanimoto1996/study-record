@@ -3,7 +3,6 @@
 @section('title', "トップ")
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('assets/css/sidebar.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/top.css') }}">
 @endsection
 
