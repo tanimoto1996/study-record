@@ -3,7 +3,6 @@
 @section('title', "メモ")
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('assets/css/sidebar.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/memos/list.css') }}">
 @endsection
 
