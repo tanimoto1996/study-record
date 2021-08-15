@@ -10,7 +10,6 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  margin-left: 14%;
   width: 100%;
   height: 100%;
 }
@@ -29,4 +28,10 @@
 .welcome-wrapper .content p.text-en {
   color: #4e4e4e;
   font-family: serif;
+}
+
+.welcome-wrapper .content p.text-jp,
+.welcome-wrapper .content p.text-en,
+.welcome-wrapper .content a.start {
+  margin-left: 29%;
 }

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-// URLを「 / 」だけにした場合、TOP画面に遷移する
+// URLを「 / 」だけにした場合、welcomeページに遷移する
 Route::get('/', function () {
     return view('welcome');
 });
