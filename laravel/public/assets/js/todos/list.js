@@ -16,6 +16,13 @@ $(function () {
     const taskId = taskStatus.data('id');
     const checkd = taskStatus.prop("checked") ? 1 : 0;
 
+    const url = location.href;
+    let urlText = 'todo/' + taskId + '/statusUpdate/'
+    if (url.match(/sort/)) {
+      //urlにsortを含む場合, 「todo/」をなくして変数に代入する
+      urlText = taskId + '/statusUpdate/'
+    }
+
     $.ajaxSetup({
       headers: {
         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -24,7 +31,7 @@ $(function () {
     $.ajax({
       //POST通信
       type: "post",
-      url: 'todo/' + taskId + '/statusUpdate/',
+      url: urlText,
       data: {
         task_id: taskId,
         task_checkd: checkd,

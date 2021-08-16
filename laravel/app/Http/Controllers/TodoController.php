@@ -51,6 +51,32 @@ class TodoController extends Controller
     }
 
     /**
+     * 終了タスクを一括削除
+     * @param App\Models\Todo $todos
+     * @return Response
+     */
+    public function downTaskDelete(Todo $todos)
+    {
+        $todos->where('user_id', Auth::id())->where('todo_status', 1)->delete();
+
+        return redirect()->route('todo.list');
+    }
+
+    /**
+     * タスクをステータス順に並び替え
+     * @param App\Models\Todo $todos
+     * @return Response
+     */
+    public function taskSort(Todo $todos)
+    {
+        $tasks = $todos->where('user_id', Auth::id())->orderBy('todo_status', 'asc')->get();
+
+        return view("todos.list", [
+            'tasks' => $tasks,
+        ]);
+    }
+
+    /**
      * タスクの内容を更新（ajax）
      * @param App\Models\Todo $todos
      * @param Illuminate\Http\Request $request
@@ -59,6 +85,8 @@ class TodoController extends Controller
     public function taskBodyUpdate(Todo $todos, Request $request)
     {
         $task = $todos->where('id', $request->task_id);
+
+        dd($task);
 
         $task->update([
             'todo_body' => $request->task_body

@@ -24,6 +24,11 @@
           <button type="submit" class="btn btn-primary ml-0 pr-4 pl-4 rounded-0" id="taskAdd">追加</button>
         </form>
 
+        <div class="task-option text-center">
+          <a class="btn btn-outline-dark btn-sm" href="{{ route('todo.downTaskDelete') }}" role="button">終了タスクを一括削除</a>
+          <a class="btn btn-outline-dark btn-sm" href="{{ route('todo.sort') }}" role="button">ステータス順に並び替える</a>
+        </div>
+
         <!-- タスク一覧 -->
         <div class="task">
           <ul class="task-list">

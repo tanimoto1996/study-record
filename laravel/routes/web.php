@@ -20,6 +20,8 @@ Route::prefix('todo')->name('todo.')->group(function () {
         Route::get('/', 'TodoController@showTodoList')->name('list');
         Route::post('/', 'TodoController@taskCreate')->name('create');
         Route::delete('/{task_id}', 'TodoController@taskDelete')->name('delete');
+        Route::get('/downTaskDelete', 'TodoController@downTaskDelete')->name('downTaskDelete');
+        Route::get('/sort', 'TodoController@taskSort')->name('sort');
 
         // ここからajax通信
         route::post('/{task_id}/statusUpdate', 'TodoController@taskStatusUpdate')->name('statusUpdate');
