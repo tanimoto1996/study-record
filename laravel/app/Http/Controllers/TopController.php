@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\StudyTime;
 use App\Top\UseCase\ShowTopPageUseCase;
+use App\Top\UseCase\createStudyTimeUseCase;
 use App\Http\Requests\CreateStudyTimeRequest;
 
 class TopController extends Controller
@@ -17,25 +18,21 @@ class TopController extends Controller
      */
     public function showTop(ShowTopPageUseCase $useCase)
     {
-        return view('top', $useCase->handle());
+        return view('top', [
+            'error_time' => session()->get('error_time'),
+        ] + $useCase->handle());
     }
 
     /**
      * 学習時間の更新
      * @param App\Models\StudyTime $times
      * @param App\Http\Requests\CreateStudyTimeRequest $request
+     * @param App\Top\UseCase\ShowTopPageUseCase $useCase
      * @return Response
      */
-    public function studyTimeCreate(StudyTime $times, CreateStudyTimeRequest $request)
+    public function studyTimeCreate(StudyTime $times, CreateStudyTimeRequest $request, createStudyTimeUseCase $useCase)
     {
-        // timeカラムがint型のためコロンを排除する
-        $time = str_replace(":", "", $request->study_time);
-
-        $times->create([
-            'time' => (int)$time,
-            'user_id' => Auth::id()
-        ]);
-
+        $useCase->handle($times, $request);
         return redirect()->route('top');
     }
 }

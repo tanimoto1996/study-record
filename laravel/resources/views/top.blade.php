@@ -63,6 +63,13 @@
     <!-- 学習時間 -->
     <div class="card study-total-time w-75">
       <div class="card-body">
+        @if ($error_time)
+
+        <div class="alert alert-danger" role="alert">
+          <span>{{ $error_time }}</span>
+        </div>
+
+        @endif
         <div class="study-time-wrap">
           <h5 class="card-title text-muted">学習時間<span class="card-text">（合計{{ $total }}分）</span></h5>
           <form action="{{ route('top.time') }}" method="post">
