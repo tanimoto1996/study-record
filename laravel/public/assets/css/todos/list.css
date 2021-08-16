@@ -16,16 +16,19 @@
 
 .task .task-list {
   display: flex;
-  flex-wrap: nowrap;
   margin-left: 0px;
   padding-left: 0px;
   width: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  list-style: none;
 }
 
 .task .task-list .task-item {
   background: #dedede;
   border-radius: 5px;
   height: 50px;
+  margin-top: 15px;
   padding: 10px;
   transition: all 0.5s 0s ease;
 }
