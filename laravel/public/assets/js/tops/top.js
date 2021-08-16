@@ -14,10 +14,13 @@ $(function () {
   let dayTime = [];
   for (let i = 0; i <= 6; i++) {
     const timeVal = document.querySelector('#studyTime' + i).innerText;
+    if (timeVal > 24) {
+      // 24時間を超えていた場合、グラフが24時間になるように制御する
+      dayTime[i] = "24";
+      continue;
+    }
     dayTime[i] = timeVal;
   }
-
-  console.log(dayTime.reverse);
 
   const studyLineChart = new Chart(ctx, {
     type: 'line',
@@ -42,11 +45,11 @@ $(function () {
       scales: {
         yAxes: [{
           ticks: {
-            suggestedMax: 24,
-            suggestedMin: 0,
+            max: 24,
+            min: 0,
             stepSize: 2,
             callback: function (value, index, values) {
-              return value + '時間'
+              return value + '時間';
             }
           }
         }]
