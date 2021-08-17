@@ -1,0 +1,28 @@
+.calendar-title {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.youbi-day-wrap {
+  display: flex;
+}
+
+.day-field {
+  background: #f1f1f1;
+  border-bottom: 1px solid #b7b5b5;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.day-field.day-sat .youbi-day-wrap {
+  color: blue;
+}
+
+.day-field.day-sun .youbi-day-wrap {
+  color: #f44336;
+}
+
+.day-field.day-blank {
+  background: grey;
+}

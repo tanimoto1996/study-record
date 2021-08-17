@@ -47,6 +47,8 @@ Route::prefix('calendar')->name('calendar.')->group(function () {
         Route::get('/edit', 'CalendarController@calendarEdit')->name('edit');
         Route::post('/create', 'CalendarController@calendarCreate')->name('create');
         Route::post('/update', 'CalendarController@calendarUpdate')->name('update');
+
+        Route::get('/week', 'CalendarController@showCalendarWeek')->name('week');
     });
 });
 

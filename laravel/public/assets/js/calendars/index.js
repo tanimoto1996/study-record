@@ -8,6 +8,13 @@ $(function () {
     const parameter = $(location).attr('search');
     const pramDate = parameter.match(/[0-9\-]+$/);
 
+    const url = location.href;
+    let urlText = 'calendar/edit'
+    if (url.match(/week/)) {
+      //urlにsortを含む場合, 「todo/」をなくして変数に代入する
+      urlText = 'edit/'
+    }
+
     //PC
     var cbW = '520px';
     var cbH = '405px';
@@ -54,9 +61,9 @@ $(function () {
           },
         });
         $.ajax({
-          //POST通信
+          //get通信
           type: "get",
-          url: 'calendar/edit',
+          url: urlText,
           data: {
             calendar_id: date,
             parameter_date: pramDate,
