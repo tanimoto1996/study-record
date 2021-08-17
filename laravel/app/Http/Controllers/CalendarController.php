@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Calendar\CalendarView;
+use App\Calendar\CalendarWeekView;
 use App\Models\Calendar;
 use App\Calendar\UseCase\ShowCalendarUseCase;
+use App\Calendar\UseCase\ShowWeekCalendarUseCase;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateCalendarRequest;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +33,27 @@ class CalendarController extends Controller
         $calendar = new CalendarView($date);
 
         return view('calendars.index', [
+            'calendar' => $calendar,
+        ]);
+    }
+
+    /**
+     * 週カレンダートップ画面表示
+     * 
+     * @param Illuminate\Http\Request $request
+     * @param App\Calendar\UseCase\ShowCalendarUseCase $useCase
+     * @return Request
+     */
+    public function showCalendarWeek(Request $request, ShowWeekCalendarUseCase $useCase)
+    {
+        //クエリーのdateを受け取る
+        $param = $request->input("date") ?? '';
+
+        $date = $useCase->handle($param);
+
+        $calendar = new CalendarWeekView($date);
+
+        return view('calendars.week', [
             'calendar' => $calendar,
         ]);
     }

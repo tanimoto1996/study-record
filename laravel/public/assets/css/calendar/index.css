@@ -46,3 +46,9 @@
 td.day-field {
   width: 130px;
 }
+
+.calendar-title {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}

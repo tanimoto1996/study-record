@@ -3,7 +3,7 @@
 @section('title', "カレンダー")
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('assets/css/calendar/index.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/calendar/week.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.31/example1/colorbox.min.css" integrity="sha512-qDmL8zJf49wqgbTQEr0nsThYpyQkjc+ulm2zAjRXd/MCoUBuvd19fP2ugx7dnxtvMOzSJ1weNdSE+jbSnA4eWw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection
 
@@ -15,16 +15,17 @@
   @include('components.sidebar')
 
   <div class="main-container">
+
     <div class="row justify-content-center">
       <div class="col-md-11 mt-3">
         <div class="card">
           <div class="calendar-header card-header text-center">
-            <a class="btn before float-left" href="{{ url('calendar/?date=' . $calendar->getPreviousMonth()) }}">前の月</a>
+            <a class="btn before float-left" href="{{ url('calendar/week/?date=' . $calendar->getPreviousWeek()) }}">前の週</a>
             <div class="calendar-title">
               <span class="title-date">{{ $calendar->getTitle() }}</span>
-              <a class="badge badge-pill badge-info" href="{{ route('calendar.week') }}">「 週 」カレンダーを表示する</a>
+              <a class="badge badge-pill badge-info" href="{{ route('calendar.index') }}">「 月 」カレンダーを表示する</a>
             </div>
-            <a class="btn next float-right" href="{{ url('calendar/?date=' . $calendar->getNextMonth()) }}">次の月</a>
+            <a class="btn next float-right" href="{{ url('calendar/week/?date=' . $calendar->getNextWeek()) }}">次の週</a>
           </div>
           <div class="card-body">
             {!! $calendar->render() !!}
