@@ -1,3 +1,21 @@
+.calendar-header span.title-date {
+  color: #616161;
+  font-size: 20px;
+}
+.calendar-header a.next,
+.calendar-header a.before {
+  color: #9e9e9e;
+  background-color: transparent;
+  border: 2px solid #9e9e9e;
+}
+
+.calendar-header a.next:hover,
+.calendar-header a.before:hover {
+  color: #616161;
+  background-color: transparent;
+  border-color: #868686;
+}
+
 .calendar-title {
   display: inline-flex;
   flex-direction: column;
