@@ -63,6 +63,7 @@
     <!-- 学習時間 -->
     <div class="card study-total-time w-75">
       <div class="card-body">
+        <a href="{{ route('top', ['month' => '1']) }}">１ヶ月のスケジュールを表示する</a>
         @if ($error_time)
 
         <div class="alert alert-danger" role="alert">
