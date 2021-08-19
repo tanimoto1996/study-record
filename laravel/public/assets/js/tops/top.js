@@ -1,7 +1,6 @@
 $(function () {
   let ctx = document.getElementById('myChart');
 
-
   // グラフに１週間の日付を設定するため、
   // 本日から１週間前の月日を配列に格納
   let dateArray = [];
