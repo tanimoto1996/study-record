@@ -33,7 +33,7 @@ final class ShowTopPageUseCase
    * 
    * @return array 
    */
-  public function handle(): array
+  public function handle($month): array
   {
     // 「TODO」 上位５件表示 ここでtaskのコメント数制限する。
     $tasks = Todo::where('user_id', Auth::id())->orderBy('created_at', 'desc')->take(5)->get();
@@ -90,25 +90,49 @@ final class ShowTopPageUseCase
       $studyTimeDay[$date] = $replaceTimeArray;
     }
 
-    // 今日から１週間前の日付を「8/1」の形で取得する
-    $dateWeek = [];
-    for ($i = 0; $i <= 6; $i++) {
-      $date = date('n/j');
-      $date = strtotime("-{$i} day", strtotime($date));
-      $dateWeek[$i] = date('n/j', $date);
-    }
+    if ($month) {
+      // 1ヶ月分の処理
+      $dateMonth = [];
+      for ($i = 0; $i <= 30; $i++) {
+        $date = date('n/j');
+        $date = strtotime("-{$i} day", strtotime($date));
+        $dateMonth[$i] = date('n/j', $date);
+      }
 
-    // １週間前までの１日ごとの学習時間を配列に格納
-    $chartStudyTimeDey = [];
-    foreach ($dateWeek as $dw) {
-      if (isset($studyTimeDay[$dw])) {
 
-        $chartStudyTimeDey[] = array_sum($studyTimeDay[$dw]);
-      } else {
-        // 時間がない時に、グラフで0時間と記載するので0を入れる
-        $chartStudyTimeDey[] = 0;
+      // １週間前までの１日ごとの学習時間を配列に格納
+      $chartStudyTimeDey = [];
+      foreach ($dateMonth as $dw) {
+        if (isset($studyTimeDay[$dw])) {
+
+          $chartStudyTimeDey[] = array_sum($studyTimeDay[$dw]);
+        } else {
+          // 時間がない時に、グラフで0時間と記載するので0を入れる
+          $chartStudyTimeDey[] = 0;
+        }
+      }
+    } else {
+      // 今日から１週間前の日付を「8/1」の形で取得する
+      $dateWeek = [];
+      for ($i = 0; $i <= 6; $i++) {
+        $date = date('n/j');
+        $date = strtotime("-{$i} day", strtotime($date));
+        $dateWeek[$i] = date('n/j', $date);
+      }
+
+      // １週間前までの１日ごとの学習時間を配列に格納
+      $chartStudyTimeDey = [];
+      foreach ($dateWeek as $dw) {
+        if (isset($studyTimeDay[$dw])) {
+
+          $chartStudyTimeDey[] = array_sum($studyTimeDay[$dw]);
+        } else {
+          // 時間がない時に、グラフで0時間と記載するので0を入れる
+          $chartStudyTimeDey[] = 0;
+        }
       }
     }
+
 
     return [
       'tasks' => $taskBodyArray,
