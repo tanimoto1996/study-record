@@ -16,11 +16,19 @@ class TopController extends Controller
      * @param array $useCase TOPページに関するDBから必要なデータ取得
      * @return Response
      */
-    public function showTop(ShowTopPageUseCase $useCase)
+    public function showTop(ShowTopPageUseCase $useCase, Request $reauest)
     {
+        if (isset($reauest->month)) {
+            // 1ヶ月の学習時間を表示する
+            $month = $reauest->month;
+        } else {
+            $month = 0;
+        }
+
+
         return view('top', [
             'error_time' => session()->get('error_time'),
-        ] + $useCase->handle());
+        ] + $useCase->handle($month));
     }
 
     /**
