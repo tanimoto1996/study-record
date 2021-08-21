@@ -134,6 +134,9 @@ final class ShowTopPageUseCase
     }
 
 
+    // dd($chartStudyTimeDey);
+
+
     return [
       'tasks' => $taskBodyArray,
       'memos' => $memoTitleArray,

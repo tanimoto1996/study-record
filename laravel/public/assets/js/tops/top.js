@@ -1,17 +1,19 @@
 $(function () {
   let ctx = document.getElementById('myChart');
 
+  $chartLength = $(".chart-length").length;
+
   // グラフに１週間の日付を設定するため、
   // 本日から１週間前の月日を配列に格納
   let dateArray = [];
-  for (let i = 0; i <= 6; i++) {
+  for (let i = 0; i <= $chartLength - 1; i++) {
     let date = new Date();
     date.setDate(date.getDate() - i);
     dateArray[i] = date.toLocaleDateString('ja-JP').slice(5);
   }
 
   let dayTime = [];
-  for (let i = 0; i <= 6; i++) {
+  for (let i = 0; i <= $chartLength - 1; i++) {
     const timeVal = document.querySelector('#studyTime' + i).innerText;
     if (timeVal > 24) {
       // 24時間を超えていた場合、グラフが24時間になるように制御する
