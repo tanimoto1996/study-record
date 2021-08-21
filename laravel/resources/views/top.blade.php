@@ -88,11 +88,13 @@
       </div>
     </div>
 
-    <!-- グラフで使う１日の時間の情報を持っておく -->
-    @for($i = 0; $i <= 6; $i++) <span class="d-none" id="studyTime{{ $i }}">{{ $chartStudyTimeDey[$i] }}</span>
-      @endfor
-
-
+    <?php $count = 0; ?>
+    @foreach($chartStudyTimeDey as $time)
+    <span class="d-none chart-length" id="studyTime<?= $count; ?>">
+      {{ $chartStudyTimeDey[$count] }}
+    </span>
+    <?php $count += 1; ?>
+    @endforeach
 
   </div>
 </div>
