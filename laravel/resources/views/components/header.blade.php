@@ -3,7 +3,7 @@
     <a class="navbar-brand" href="{{ route('top') }}">
       <img src="{{ asset('assets/image/header-logo.png') }}" style="width: 160px;">
     </a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
         @guest
         {{-- 非ログイン --}}
