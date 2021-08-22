@@ -17,6 +17,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/css/mdb.min.css" rel="stylesheet">
   <!-- css -->
   <link rel="stylesheet" href="{{ asset('assets/css/sidebar.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/header.css') }}">
   @yield('css')
 </head>
 
